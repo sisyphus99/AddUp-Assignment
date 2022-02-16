@@ -21,11 +21,14 @@ public class ProfileServiceImpl implements ProfileService {
 	public String register(UserDto user) {
 		// TODO Auto-generated method stub
 		String token;
+		//Check if the user already Exists
 		List<User> foundUser=repo.findByFirstNameAndLastNameAndEmailAndPhone(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhone());
+		//If found.return the auth token
 		if(foundUser.size()>0) {
 			token = foundUser.get(0).getToken();
 		}
 		else {
+		//Else save the user and return auth token
 		String token_format= "yyyy-MM-dd-HH-mm-ss";
 		Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat(token_format);
